@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>用户</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .empty{ text-align: center; padding: 120px 0; }
+        .login-btn{ display: flex; padding: 5px; justify-content: space-around;}
+    </style>
+</head>
+<body>
+  <div id="updata">
+    <br/>
+    <div class="aui-content aui-margin-b-15">
+      <header class="aui-bar aui-bar-nav normal">修改信息</header>
+      <ul class="aui-list aui-form-list">
+        <li class="aui-list-header">请在此修改信息</li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    用户名
+                </div>
+                <div class="aui-list-item-input">
+                    <input type="text" placeholder="Name" v-model="name">
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    密码
+                </div>
+                <div class="aui-list-item-input">
+                    <input type="password" placeholder="Password" v-model="pwd">
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-list-item-inner">
+                <div class="aui-list-item-label">
+                    确认密码
+                </div>
+                <div class="aui-list-item-input">
+                    <input type="password" placeholder="Password" v-model="surepwd">
+                </div>
+            </div>
+        </li>
+      </ul>
+      <br/>
+      <br/>
+      <div class="login-btn">
+        <p><div class="aui-btn aui-btn-info" @click="updata">修改</div></p>
+        <p><div class="aui-btn aui-btn-info" @click="empty">清空</div></p>
+      </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script type="text/javascript">
+apiready = function () {
+  var vm = new Vue({
+      el:"#updata",
+      data:{
+        name:'',
+        pwd:'',
+        surepwd:''
+      },
+      created(){
+
+      },
+      methods:{
+        empty:function(){
+          this.name="";
+          this.pwd="";
+          this.surepwd=""
+        },
+        updata:function(){
+          if(this.pwd != this.surepwd){
+            return;
+          }
+          api.ajax({
+              url: 'http://shenzepengzuishuai.cn:8080/walkwatching-0.0.1-SNAPSHOT/user',
+              method: 'post',
+              headers: {
+                  'Content-Type': 'application/json;charset=utf-8'
+              },
+              data: {
+                body:{
+                    "headerImg": "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2333787549,3902944237&fm=26&gp=0.jpg",
+                    "id": $api.getStorage('userId'),
+                    "nickName": this.name,
+                    "password": this.pwd,
+                    "type": "0"
+                  }
+              }
+          },function(ret, err){
+              if (ret) {
+                  alert("修改成功！");
+                  api.closeWin();
+              } else {
+                  alert("修改失败！");
+              }
+          });
+        },
+        back:function(){
+          api.closeWin();
+        }
+      }
+  })
+}
+</script>
+</html>

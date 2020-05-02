@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>用户</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .empty{ text-align: center; padding: 120px 0; }
+    </style>
+</head>
+<body>
+  <div id="about">
+    <br/>
+    <div class="aui-content aui-margin-b-15">
+    <ul class="aui-list aui-media-list">
+        <li class="aui-list-header">
+            更新日志
+        </li>
+        <li class="aui-list-item aui-list-item-arrow">
+            <div class="aui-media-list-item-inner">
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-text">
+                        <div class="aui-list-item-title">开始人体活动识别系统的制作</div>
+                        <div class="aui-list-item-right">2020/2/1</div>
+                    </div>
+                    <div class="aui-list-item-text aui-ellipsis-2">
+                        从今天开始，开始进行人体活动识别系统的制作。
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-media-list-item-inner">
+                <div class="aui-list-item-media">
+                    <img src="../image/pao.png">
+                </div>
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-text">
+                        <div class="aui-list-item-title">人体活动识别系统的二次更新</div>
+                    </div>
+                    <div class="aui-list-item-text">
+                        完成了登录注册，开始进行数据处理。
+                    </div>
+                </div>
+            </div>
+            <div class="aui-info" style="padding-top:0">
+                <div class="aui-info-item">
+                    <img src="../image/dog.jpg" style="width:1rem" class="aui-img-round" /><span class="aui-margin-l-5">admin</span>
+                    </div>
+                <div class="aui-info-item">2020-03-01 10:31</div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-media-list-item-inner">
+                <div class="aui-list-item-media">
+                    <img src="../image/pao.png">
+                </div>
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-text">
+                        <div class="aui-list-item-title">人体活动识别系统的三次更新</div>
+                    </div>
+                    <div class="aui-list-item-text">
+                        基本完善了数据处理功能，用剩余时间完善系统。
+                    </div>
+                    <div class="aui-info aui-margin-t-5" style="padding:0">
+                        <div class="aui-info-item">
+                            <img src="../image/dog.jpg" style="width:1rem" class="aui-img-round" /><span class="aui-margin-l-5">admin</span>
+                            </div>
+                        <div class="aui-info-item">2020-04-01 10:31</div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="aui-list-item">
+            <div class="aui-media-list-item-inner">
+                <div class="aui-list-item-media">
+                    <img src="../image/pao.png">
+                </div>
+                <div class="aui-list-item-inner">
+                    <div class="aui-list-item-text">
+                        <div class="aui-list-item-title">人体活动识别系统的四次更新</div>
+                    </div>
+                    <div class="aui-list-item-text">
+                        基本上完善了系统，开始查漏补缺。
+                    </div>
+                    <div class="aui-info aui-margin-t-5" style="padding:0">
+                        <div class="aui-info-item">
+                            <img src="../image/dog.jpg" style="width:1rem" class="aui-img-round" /><span class="aui-margin-l-5">admin</span>
+                            </div>
+                        <div class="aui-info-item">2020-05-01 10:31</div>
+                    </div>
+                </div>
+            </div>
+        </li>
+      </ul>
+      <p><div class="aui-btn aui-btn-info aui-btn-block aui-btn-outlined aui-btn-sm" style="width:80%; margin:3rem auto; font-size:1rem;" @click="back">返回</div></p>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script type="text/javascript">
+apiready = function () {
+  var vm = new Vue({
+      el:"#about",
+      data:{
+
+      },
+      created(){
+
+      },
+      methods:{
+        back:function(){
+          api.closeWin();
+        }
+      }
+  })
+}
+</script>
+</html>

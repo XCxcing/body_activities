@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>用户</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .empty{ text-align: center; padding: 120px 0; }
+    </style>
+</head>
+<body>
+  <div id="user">
+    <div class="aui-card-list">
+        <div class="aui-card-list-header aui-card-list-user aui-border-b">
+            <div class="aui-card-list-user-avatar">
+                <img :src="userPic" class="aui-img-round" />
+            </div>
+            <div class="aui-card-list-user-name">
+                <div>{{userName}}</div>
+                <small>{{dataNow}}</small>
+            </div>
+            <div class="aui-card-list-user-info" style=" color:blue;" @click="goUpdata">修改信息</div>
+        </div>
+    </div>
+    <div class="aui-content aui-margin-b-15">
+          <ul class="aui-list aui-list-in">
+              <li class="aui-list-header">
+                  其他功能
+              </li>
+              <li class="aui-list-item aui-list-item-middle" @click="go">
+                  <div class="aui-list-item-inner aui-list-item-arrow">
+                    <div class="aui-list-item-title">更新日志</div>
+                  </div>
+              </li>
+              <li class="aui-list-item" @click="signout">
+                  <div class="aui-list-item-inner aui-list-item-arrow">
+                      <div class="aui-list-item-title">退出登录</div>
+                  </div>
+              </li>
+              <li class="aui-list-item" @click="quit">
+                  <div class="aui-list-item-inner aui-list-item-arrow">
+                      <div class="aui-list-item-title">退出程序</div>
+                  </div>
+              </li>
+          </ul>
+      </div>
+  </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script type="text/javascript">
+apiready = function () {
+  var vm = new Vue({
+      el:"#user",
+      data:{
+        userName:"",
+        userPic:"",
+        dataNow:"a"
+      },
+      created(){
+        // this.userName = 'aaa',
+        // alert($api.getStorage('userName'));
+        if($api.getStorage('phoneNumber') === undefined){
+          api.openWin({
+              name: 'login',
+              url: './login.html',
+              pageParam: {
+                  name: 'test'
+              }
+          });
+        }
+        this.userName = $api.getStorage('userName');
+        this.userPic = $api.getStorage('headerImg');
+        var myDate = new Date();
+        this.dataNow = myDate.getFullYear() + "/" + myDate.getMonth() + "/" + myDate.getDate() + "   "
+        + myDate.getHours() + ":" + myDate.getMinutes();
+      },
+      methods:{
+        outmsg:function(){
+        },
+        goUpdata:function(){
+          api.openWin({
+              name: 'updata',
+              url: './updata.html',
+              pageParam: {
+                  name: 'test'
+              }
+          });
+        },
+        go:function(){
+          api.openWin({
+              name: 'about',
+              url: './about.html',
+              pageParam: {
+                  name: 'test'
+              }
+          });
+        },
+        signout:function(){
+          $api.clearStorage();
+          window.location.reload();
+        },
+        quit:function(){
+          api.closeWidget({
+            id: 'A6032817094627',
+            retData: {name:'closeWidget'},
+            silent:true
+          });
+        },
+        show:function(){
+          alert($api.getStorage('userName'))
+        }
+      }
+  })
+}
+</script>
+</html>

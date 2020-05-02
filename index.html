@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>测试</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/iconfont/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="./css/style.css"/>
+    <style>
+    .normal {display: none;}
+    .active {display: block;}
+    </style>
+</head>
+<body>
+  <div id="apps">
+    <header class="aui-bar aui-bar-nav normal" v-for="(vo,index) in list" v-bind:class="{'active':active_index==index}">
+    {{ vo.title }}
+    </header>
+    <footer class="aui-bar-one aui-bar-tab" id="footer">
+      <div class="aui-bar-tab-item" v-for="(vo,index) in list" v-on:click="switchFrame(index)" v-bind:class="{'aui-active': active_index == index}" tapmode>
+          <i class="iconfont icon-home" v-if="index == 0"></i>
+          <i class="iconfont icon-fenlei" v-if="index == 1"></i>
+          <i class="iconfont icon-wode" v-if="index == 2"></i>
+          <div class="aui-bar-tab-label">{{ vo.title }}</div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
+<script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript" src="script/vue.js"></script>
+<script type="text/javascript">
+apiready = function () {
+      var headerlist = $api.domAll('header');
+      for(var i=0; i<headerlist.length; i++){
+          $api.fixStatusBar(headerlist[i]); //适配苹果、安卓移动设备
+          $api.fixIos7Bar(headerlist[i]);
+      }
+      api.setStatusBarStyle({
+          style: 'light',
+          color: '#0064b0'
+      });
+      vm.init();
+
+    api.addEventListener({
+       name:'viewdisappear'
+   },function(){
+       api.closeWin();
+   });
+
+  }
+var vm = new Vue({
+        el:"#apps",
+        data:{
+          active_index:0,
+          list:[
+            {title:"身体"},
+            {title:"统计"},
+            {title:"我的"},
+          ]
+        },
+        methods:{
+          init: function(){
+            var headerH = $api.dom('header').offsetHeight;
+            var footerH = $api.dom('footer').offsetHeight;
+            var frameH = api.winHeight - headerH - footerH;
+            api.openFrameGroup ({
+                name: 'testGroup',
+                background: '#fff',
+                scrollEnabled: false,
+                rect: {
+                     x: 0,
+                     y: headerH,
+                     w: 'auto',
+                     h: frameH
+                },
+                frames: [{
+                    name: 'index',
+                    url: './html/index.html',
+                    bgColor: '#fff',
+                    bounces:false
+                },{
+                    name: 'body',
+                    url: './html/body.html',
+                    bgColor: '#fff',
+                    bounces:false
+                },{
+                    name: 'user',
+                    url: './html/user.html',
+                    bgColor: '#fff',
+                    bounces:false
+                }]
+            }, function(ret, err){
+                // if( ret ){
+                //      alert( JSON.stringify( ret ) );
+                // }else{
+                //      alert( JSON.stringify( err ) );
+                // }
+            });
+          },
+          switchFrame:function(index){
+            if(vm.active_index == index){
+              return false;
+            }
+            vm.active_index = index;
+            api.setFrameGroupIndex({
+              name: 'testGroup',
+              index: index
+            });
+          }
+        }
+      })
+</script>

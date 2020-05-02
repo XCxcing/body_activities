@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>文档</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+        .empty{ text-align: center; padding: 120px 0; }
+        .show{ width: 100%; height: 80rem; background: #fff;}
+    </style>
+</head>
+<body>
+  <div id="body">
+    <div class="aui-info aui-padded-l-10 aui-padded-r-10">
+        <div class="aui-info-item">
+            <img src="../image/pao.png" style="width:2.5rem" class="aui-img-round" /><span class="aui-margin-l-5">数据统计</span>
+        </div>
+    </div>
+    <div class="aui-tab" id="tab">
+        <div :class="a" @click="aa">日</div>
+        <div :class="b" @click="bb"><div></div>周</div>
+        <div :class="c" @click="cc">月</div>
+        <!-- aui-tab-item aui-active -->
+    </div>
+    <div class="show">
+        <div class="day" v-if="index===1">
+          aaaa
+        </div>
+        <div class="week" v-if="index===2">
+          bbbb
+        </div>
+        <div class="month" v-if="index===3">
+          cccc
+        </div>
+    </div>
+    <!-- <button type="button" name="button" id="out">123</button> -->
+  </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/vue.js"></script>
+<script type="text/javascript">
+apiready = function () {
+    // $api.addEvt($api.dom('#out'), 'click', function(){
+    //   var accelerometerSensor = api.require('accelerometerSensor');
+    //   accelerometerSensor.startListener(
+    //     { type: 1 },
+    //      function(ret, err) {
+    //        accelerometerSensor.closeListener();
+    //        alert(ret.state + "-" + ret.x + "-" + ret.y + "-" + ret.z);
+    //      });
+    // });
+  var vm = new Vue({
+      el:"#body",
+      data:{
+        index:1,
+        a:'aui-tab-item aui-active',
+        b:'aui-tab-item',
+        c:'aui-tab-item'
+      },
+      created(){
+        if($api.getStorage('phoneNumber') === undefined){
+          api.openWin({
+              name: 'login',
+              url: './login.html',
+              pageParam: {
+                  name: 'test'
+              }
+          });
+        }
+      }
+      ,
+      methods:{
+        outmsg:function(){
+          $api.clearStorage();
+          alert("a");
+        },
+        aa:function(){
+          this.index=1;
+          this.a = 'aui-tab-item aui-active';
+          this.b = 'aui-tab-item';
+          this.c = 'aui-tab-item';
+        },
+        bb:function(){
+          this.index=2;
+          this.a = 'aui-tab-item';
+          this.b = 'aui-tab-item aui-active';
+          this.c = 'aui-tab-item';
+        },
+        cc:function(){
+          this.index=3;
+          this.a = 'aui-tab-item';
+          this.b = 'aui-tab-item';
+          this.c = 'aui-tab-item aui-active';
+        }
+      }
+  })
+}
+
+</script>
+</html>
